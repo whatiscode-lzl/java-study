@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @since 2019/12/9 12:59
  */
 @Slf4j
-public class TestServerSocketChannelNoneBlock {
+public class TestNoBlockingNIO {
 //    读数据状态--完全准备就绪
 //    选择器：Selector
 //
