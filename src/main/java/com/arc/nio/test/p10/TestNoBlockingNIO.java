@@ -110,12 +110,13 @@ public class TestNoBlockingNIO {
 //        }
 //        return "null";
 
-        Scanner input = new Scanner(System.in);
-        System.out.println("请输入一个字符串(中间能加空格或符号)");
-        String line = input.nextLine();
-        String s = LocalDateTime.now().toString() + "\n" + line;
-        System.out.println(s);
-        return s;
+//        Scanner input = new Scanner(System.in);
+//        System.out.println("请输入一个字符串(中间能加空格或符号)");
+//        String line = input.nextLine();
+//        String s = LocalDateTime.now().toString() + "\n" + line;
+//        System.out.println(s);
+        // scanner 在junit中不能正常工作
+        return "1111111";
 
     }
 
