@@ -1,4 +1,4 @@
-package com.arc.nio.test.buffer;
+package com.arc.nio.test.p2;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
