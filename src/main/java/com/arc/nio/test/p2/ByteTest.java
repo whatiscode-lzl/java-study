@@ -2,8 +2,11 @@ package com.arc.nio.test.p2;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Z
+ */
 @SpringBootApplication
-public class TestByte {
+public class ByteTest {
 //缓冲区 Buffer， Java NIO中负责数据的存取。用于存取不同数据类型
 //        ByteBuffer
 //        CharBuffer

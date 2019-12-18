@@ -13,69 +13,73 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Map;
+import java.util.SortedMap;
 
 /**
  * 测试
  *
- * @author {author}
+ * @author may
  * @since 2019/12/9 10:41
  */
-public class TestChannel {
+public class ChannelTest {
 
-    //一、通道（Channel）：用于源节点与目标节点的连接，在Java NIO中负责数据的传输，Channel本省不存储数据，因此需要配合缓冲区进行传输
-// 二、通道的主要实现类
-// java.nio.channels.Channel 接口     since 1.4
-//java.nio.channels.ByteChannel
+/*
+ 一、通道（Channel）：用于源节点与目标节点的连接，在Java NIO中负责数据的传输，Channel本省不存储数据，因此需要配合缓冲区进行传输
+ 二、通道的主要实现类
+ java.nio.channels.Channel 接口     since 1.4
+java.nio.channels.ByteChannel
 
-    // java.nio.channels.FileChannel
-//                             |--SocketChannel
-//                             |--ServerSocketChannel
-//                             |--DatagramChannel
-//
-//三、获取通道
-//    1.Java针对通道的类提供了getChannel（）方法
-//    本地IO：
-//    FileInputStream、FileOutStream
-//    RandomAccessFile
-//
-//    网络IO：
-//    Socket
-//    ServerSocket
-//    DatagramSocket
-//
-//    2.在JDK1.7==NIO2 中 静态方法： open()
-//    3.在JDK1.7==NIO2 中 Files工具类中newByteChannel()
-//
-//四、通道之间传输数据
-//    transferTo()
-//    transferFrom（）
-//
-//五、分散（Scatter）与聚集（Gather）
-//    分散读取： 将通道中大数据分散到多个缓冲区中        注意：按照缓冲区的顺序，从channel中读取依次将buffer填满
-//    聚集写入：将多个缓冲区中的数据聚集到通道中
-//
-//六、字符集：CharSet
-//    编码：字符串-->字节数组
-//    解码：字节数组-->字符串
-//
+     java.nio.channels.FileChannel
+                             |--SocketChannel
+                             |--ServerSocketChannel
+                             |--DatagramChannel
+
+三、获取通道
+    1.Java针对通道的类提供了getChannel（）方法
+    本地IO：
+    FileInputStream、FileOutStream
+    RandomAccessFile
+
+    网络IO：
+    Socket
+    ServerSocket
+    DatagramSocket
+
+    2.在JDK1.7==NIO2 中 静态方法： open()
+    3.在JDK1.7==NIO2 中 Files工具类中newByteChannel()
+
+四、通道之间传输数据
+    transferTo()
+    transferFrom（）
+
+五、分散（Scatter）与聚集（Gather）
+    分散读取： 将通道中大数据分散到多个缓冲区中        注意：按照缓冲区的顺序，从channel中读取依次将buffer填满
+    聚集写入：将多个缓冲区中的数据聚集到通道中
+
+六、字符集：CharSet
+    编码：字符串-->字节数组
+    解码：字节数组-->字符串
+
+*/
 
 
     public static void main(String[] args) throws IOException {
 
-//        new TestChannel().test1();
-//        new TestChannel().test2();
-//        new TestChannel().test3();
-//        new TestChannel().test4();
-        new TestChannel().test5();
+        new ChannelTest().test1();
+        new ChannelTest().test2();
+        new ChannelTest().test3();
+        new ChannelTest().test4();
+        new ChannelTest().test5();
 
     }
 
     //字符集
     private void test5() throws CharacterCodingException {
-        //        SortedMap<String, Charset> map = Charset.availableCharsets();
-        //        for (Map.Entry<String, Charset> entry : map.entrySet()) {
-        //            System.out.println(entry.getKey() + "--" + entry.getValue());
-        //        }
+                SortedMap<String, Charset> map = Charset.availableCharsets();
+                for (Map.Entry<String, Charset> entry : map.entrySet()) {
+                    System.out.println(entry.getKey() + "--" + entry.getValue());
+                }
 
 
         Charset gbkCharset = Charset.forName("GBK");
@@ -83,7 +87,7 @@ public class TestChannel {
         //获取编码器
         CharsetEncoder charsetEncoder = gbkCharset.newEncoder();
 
-        //获取解码器
+       //获取解码器
         CharsetDecoder charsetDecoder = gbkCharset.newDecoder();
 
         CharBuffer cBuffer = CharBuffer.allocate(1024);
@@ -129,7 +133,7 @@ public class TestChannel {
         ByteBuffer[] buffers = {buffer1, buffer2};
         channel1.read(buffers);
 
-        // 打印看一下
+         //打印看一下
         for (ByteBuffer buffer : buffers) {
             buffer.flip();
         }
@@ -190,7 +194,7 @@ public class TestChannel {
             inChannel = FileChannel.open(Paths.get("T:/data/temp/1.jpg"), StandardOpenOption.READ);
             outChannel = FileChannel.open(Paths.get("T:/data/temp/2.jpg"), StandardOpenOption.READ, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
 
-            //2、声明内存映射//ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
+            //2、声明内存映射ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
             MappedByteBuffer inMappedByteBuffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
             MappedByteBuffer outMappedByteBuffer = outChannel.map(FileChannel.MapMode.READ_WRITE, 0, inChannel.size());
 
@@ -232,7 +236,6 @@ public class TestChannel {
         File source = null;
         try {
             source = ResourceUtils.getFile("classpath:static/image/1111.jpg");
-//        String source = "1111.jpg";
             String target = "2.jpg";
             fileInputStream = new FileInputStream(source);
             fileOutputStream = new FileOutputStream(target);
@@ -247,7 +250,7 @@ public class TestChannel {
             //3 将通道中的数据存入缓冲区
             while (inputStreamChannel.read(buffer) != -1) {
                 buffer.flip();//切换读数据的模式
-                // 4 将缓冲区的数据写入通道
+                 //4 将缓冲区的数据写入通道
                 outputStreamChannel.write(buffer);
                 buffer.clear();//清空缓存区
             }
@@ -257,7 +260,6 @@ public class TestChannel {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            //fileInputStream
             if (fileInputStream != null) {
                 try {
                     fileInputStream.close();
@@ -265,7 +267,6 @@ public class TestChannel {
                     e.printStackTrace();
                 }
             }
-            //fileOutputStream
             if (fileOutputStream != null) {
                 try {
                     fileOutputStream.close();
@@ -273,7 +274,6 @@ public class TestChannel {
                     e.printStackTrace();
                 }
             }
-            //inputStreamChannel
             if (inputStreamChannel != null) {
                 try {
                     inputStreamChannel.close();
@@ -281,7 +281,6 @@ public class TestChannel {
                     e.printStackTrace();
                 }
             }
-            //outputStreamChannel
             if (outputStreamChannel != null) {
                 try {
                     outputStreamChannel.close();

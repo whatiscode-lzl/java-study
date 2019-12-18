@@ -16,7 +16,7 @@ import java.util.Iterator;
  * @since 2019/12/9 21:54
  */
 @Slf4j
-public class TestNoBlockingNIO2 {
+public class NoBlockingNio2Test {
 
 
     //发送端

@@ -12,11 +12,11 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- * @author {author}
+ * @author may
  * @since 2019/12/9 12:59
  */
 @Slf4j
-public class TestNoBlockingNIO {
+public class NoBlockingNioTest {
 //    读数据状态--完全准备就绪
 //    选择器：Selector
 //

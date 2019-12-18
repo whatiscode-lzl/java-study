@@ -13,11 +13,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 /**
- * @author {author}
+ * @author may
  * @since 2019/12/9 12:59
  */
 @Slf4j
-public class TestServerSocketChannel {
+public class ServerSocketChannelTest {
 //客户端数据发送一个读写请求到服务端
 //    服务无端不能确定客户端判断数据真实有效状态时候，该线程会一直处于阻塞状态，服务端会等客户端发送
 //
@@ -53,25 +53,23 @@ public class TestServerSocketChannel {
 //3、选择器（Selector）：是SelectableChannel的多路复涌去。用于监控SelectableChannel的IO情况
 //
 //
-//
 
     public static void main(String[] args) throws InterruptedException {
         long s1 = System.currentTimeMillis();
         Runnable server = new Runnable() {
             @Override
             public void run() {
-                new TestServerSocketChannel().server();
+                new ServerSocketChannelTest().server();
             }
         };
 
         Runnable client = new Runnable() {
             @Override
             public void run() {
-                new TestServerSocketChannel().client();
+                new ServerSocketChannelTest().client();
 
             }
         };
-
 
 
         //todo 为何两个线程启动 不是串行的
@@ -110,14 +108,14 @@ public class TestServerSocketChannel {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("结果={}",e);
+            log.error("结果={}", e);
         } finally {
             if (inChannel != null) {
                 try {
                     inChannel.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    log.error("结果={}",e);
+                    log.error("结果={}", e);
                 }
             }
 
@@ -126,7 +124,7 @@ public class TestServerSocketChannel {
                     socketChannel.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    log.error("结果={}",e);
+                    log.error("结果={}", e);
                 }
             }
         }
