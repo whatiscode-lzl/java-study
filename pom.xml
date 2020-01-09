@@ -8,10 +8,10 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.arc</groupId>
-    <artifactId>nio</artifactId>
+    <groupId>com.study</groupId>
+    <artifactId>java-study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nio</name>
+    <name>study</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -48,6 +48,18 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>2.2.1.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.6.1</version>
         </dependency>
     </dependencies>
 

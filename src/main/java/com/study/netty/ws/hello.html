@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form onsubmit="return false">
+    <textarea name="message" style="height: 300px;width: 300px"></textarea>
+    <input type="button" value="发送消息" onclick="send(this.form.message.value)">
+    <textarea id="responseText" style="height: 300px;width: 300px"></textarea>
+    <input type="button" value="清空消息" onclick="document.getElementById('responseText').value=''">
+</form>
+<script>
+    var websocket;
+    if (window.WebSocket){
+        websocket = new WebSocket("ws://localhost:9898/hello");
+        websocket.onmessage = function (ev) {
+            console.log("收到服务器的消息："+ev.data);
+            var rt = document.getElementById("responseText");
+            rt.value = rt.value +"\n" + ev.data;
+        }
+        // 监听和服务器成功连接
+        websocket.onopen = function (ev) {
+            var rt = document.getElementById("responseText");
+            rt.value = "成功连接到服务器";
+        }
+        // 监听服务器关闭
+        websocket.onclose = function (ev) {
+            var rt = document.getElementById("responseText");
+            rt.value = rt.value +"\n" + "服务器关闭了";
+        }
+    } else {
+        alert("你的浏览器不支持ws")
+    }
+
+    // 发送消息
+    function send(message) {
+        if (!window.websocket) {
+            return;
+        }
+        
+        if (websocket.readyState == WebSocket.OPEN){
+            websocket.send(message);
+        }else {
+            alert("连接没有开启..")
+        }
+    }
+</script>
+</body>
+</html>
