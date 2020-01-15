@@ -28,10 +28,10 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
 
             // 过滤某些资源请求
             HttpRequest httpRequest = (HttpRequest)msg;
-            URI uri = new URI(httpRequest.getUri());
-            if ("/favicon.ico".equals(uri.getPath())){
-                System.out.println("客户端请求了不存在的资源");
-                return;
+                URI uri = new URI(httpRequest.getUri());
+                if ("/favicon.ico".equals(uri.getPath())){
+                    System.out.println("客户端请求了不存在的资源");
+                    return;
             }
 
             ByteBuf content = Unpooled.copiedBuffer("服务端返回的信息", Charset.forName("GBK"));
