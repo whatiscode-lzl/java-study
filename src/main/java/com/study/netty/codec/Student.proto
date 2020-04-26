@@ -1,9 +1,0 @@
-syntax = "proto3"; // 使用的协议版本（jar包版本）
-option java_outer_classname = "StudentPOJO"; // 生成的java文件名
-
-// 使用message管理数据
-message Student { // 会在StudentPOJO 生成 一个内部类 Student 他是真正发送的POJO对象
-  int32 id = 1;
-  string name = 2;
-  // 这里的1 和 2是属性的序号，不是属性值
-}
